@@ -19,6 +19,7 @@ class MediaFile extends Model
         'file_path',
         'file_name',
         'file_size',
+        'aspect_ratio',
     ];
 
     /**
