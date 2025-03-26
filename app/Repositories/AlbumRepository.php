@@ -20,7 +20,8 @@ class AlbumRepository
         array $withCountRelations = [],
         string $sortKey = 'created_at',
         string $sortOrder = 'desc',
-        bool $withTrashed = true
+        bool $withTrashed = true,
+        bool $hasMediaItems = false
     ): LengthAwarePaginator {
         return Album::query()
             ->withTrashed($withTrashed)
@@ -33,6 +34,7 @@ class AlbumRepository
                         ->orWhereLike('name_vi', "%{$keyword}%");
                 }
             )
+            ->when($hasMediaItems, fn(Builder $query) => $query->whereHas('mediaItems'))
             ->with($relations)
             ->withCount($withCountRelations)
             ->orderBy($sortKey, $sortOrder)
