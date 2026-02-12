@@ -1,0 +1,53 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Common\App\Models;
+
+use Common\App\Enums\WebVisibility;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+
+/**
+ * The common model class for project.
+ */
+class Project extends Model
+{
+    public $timestamps = true;
+
+    protected $table = 'projects';
+
+    protected $primaryKey = 'id';
+
+    protected $casts = [
+        'is_highlight' => 'boolean',
+        'web_visibility' => WebVisibility::class,
+    ];
+
+    protected $appends = ['thumbnail_url'];
+
+    /**
+     * Get the project's thumbnail URL.
+     */
+    public function getThumbnailUrlAttribute(): string
+    {
+        return config('app.file_host') . "storage/{$this->thumbnail_file_path}";
+    }
+
+    /**
+     * Get the project's category.
+     */
+    public function category(): BelongsTo
+    {
+        return $this->belongsTo(Category::class);
+    }
+
+    /**
+     * Get the project's galleries.
+     */
+    public function galleries(): HasMany
+    {
+        return $this->hasMany(Gallery::class);
+    }
+}
