@@ -25,8 +25,8 @@ enum MediaType: int
     public function label(): string
     {
         return match ($this) {
-            self::Image => __('image'),
-            self::Video => __('video'),
+            self::Image => __('photography'),
+            self::Video => __('cinematography'),
         };
     }
 }

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Common\App\Models;
 
+use App\Enums\MediaFrame;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -16,6 +17,11 @@ class MediaItem extends Model
     protected $table = 'media_items';
 
     protected $primaryKey = 'id';
+
+    protected $casts = [
+        'frame' => MediaFrame::class,
+        'is_banner' => 'boolean',
+    ];
 
     protected $appends = ['file_url'];
 

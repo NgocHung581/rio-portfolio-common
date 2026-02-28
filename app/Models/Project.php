@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Common\App\Models;
 
+use App\Enums\MediaFrame;
 use Common\App\Enums\WebVisibility;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -23,9 +24,12 @@ class Project extends Model
     protected $casts = [
         'is_highlight' => 'boolean',
         'web_visibility' => WebVisibility::class,
+        'thumbnail_frame' => MediaFrame::class,
     ];
 
     protected $appends = ['thumbnail_url'];
+
+    protected $with = ['category', 'galleries.mediaItems'];
 
     /**
      * Get the project's thumbnail URL.

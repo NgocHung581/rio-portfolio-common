@@ -31,13 +31,24 @@ enum WebVisibility: int
     }
 
     /**
-     * Get the color of the case.
-     */
+    * Get the color of the case.
+    */
     public function color(): string
     {
         return match ($this) {
             self::Private => 'error',
             self::Public => 'success',
+        };
+    }
+
+    /**
+     * Get the icon of the case.
+     */
+    public function icon(): string
+    {
+        return match ($this) {
+            self::Private => 'LockOutline',
+            self::Public => 'PublicOutlined',
         };
     }
 }
