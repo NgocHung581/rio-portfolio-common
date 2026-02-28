@@ -36,7 +36,7 @@ class Project extends Model
      */
     public function getThumbnailUrlAttribute(): string
     {
-        return config('app.file_host') . "storage/{$this->thumbnail_file_path}";
+        return config('app.storage_host') . "storage/{$this->thumbnail_file_path}";
     }
 
     /**

@@ -30,6 +30,6 @@ class MediaItem extends Model
      */
     public function getFileUrlAttribute(): string
     {
-        return config('app.file_host') . "storage/{$this->file_path}";
+        return config('app.storage_host') . "storage/{$this->file_path}";
     }
 }
