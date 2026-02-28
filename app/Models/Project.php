@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Common\App\Models;
 
-use App\Enums\MediaFrame;
+use Common\App\Enums\MediaFrame;
 use Common\App\Enums\WebVisibility;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
