@@ -27,17 +27,7 @@ class Project extends Model
         'thumbnail_frame' => MediaFrame::class,
     ];
 
-    protected $appends = ['thumbnail_url'];
-
     protected $with = ['category', 'galleries.mediaItems'];
-
-    /**
-     * Get the project's thumbnail URL.
-     */
-    public function getThumbnailUrlAttribute(): string
-    {
-        return config('app.storage_host') . "storage/{$this->thumbnail_file_path}";
-    }
 
     /**
      * Get the project's category.

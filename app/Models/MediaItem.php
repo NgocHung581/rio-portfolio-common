@@ -22,14 +22,4 @@ class MediaItem extends Model
         'frame' => MediaFrame::class,
         'is_banner' => 'boolean',
     ];
-
-    protected $appends = ['file_url'];
-
-    /**
-     * Get the media item's file URL.
-     */
-    public function getFileUrlAttribute(): string
-    {
-        return config('app.storage_host') . "storage/{$this->file_path}";
-    }
 }
