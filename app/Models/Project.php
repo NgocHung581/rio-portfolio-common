@@ -9,6 +9,7 @@ use Common\App\Enums\WebVisibility;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Facades\Storage;
 
 /**
  * The common model class for project.
@@ -27,7 +28,17 @@ class Project extends Model
         'thumbnail_frame' => MediaFrame::class,
     ];
 
+    protected $appends = ['thumbnail_file_url'];
+
     protected $with = ['category', 'galleries.mediaItems'];
+
+    /**
+     * Get the project's thumbnail file URL.
+     */
+    public function getThumbnailFileUrlAttribute(): string
+    {
+        return Storage::disk('public')->url($this->thumbnail_file_path);
+    }
 
     /**
      * Get the project's category.

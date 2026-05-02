@@ -13,30 +13,32 @@ class GetWebsiteContentSettingUseCase
 {
     public function __invoke(): array
     {
-        if (Storage::exists('data/website_content_setting.json')) {
-            $websiteContentSetting = json_decode(Storage::get('data/website_content_setting.json'), true);
-            $websiteContentSetting['avatar']['url'] = config('app.storage_host') . Storage::url($websiteContentSetting['avatar']['file_path']);
+        $dataFilePath = 'data/website_content_setting.json';
 
-            if (!isset($websiteContentSetting['partner_logos'])) {
-                $websiteContentSetting['partner_logos'] = [];
+        if (Storage::exists($dataFilePath)) {
+            $data = json_decode(Storage::get($dataFilePath), true);
+            $data['avatar']['file_url'] = Storage::disk('public')->url($data['avatar']['file_path']);
+
+            if (!isset($data['partner_logos'])) {
+                $data['partner_logos'] = [];
             } else {
-                foreach ($websiteContentSetting['partner_logos'] as &$partnerLogo) {
-                    $partnerLogo['url'] = config('app.storage_host') . Storage::url($partnerLogo['file_path']);
+                foreach ($data['partner_logos'] as &$partnerLogo) {
+                    $partnerLogo['file_url'] = Storage::disk('public')->url($partnerLogo['file_path']);
                 }
             }
         } else {
-            $websiteContentSetting = [
+            $data = [
                 'phone_number' => '',
                 'email' => '',
                 'introduction_en' => '',
                 'introduction_vi' => '',
-                'avatar' => null,
+                'avatar' => ['file_path' => '', 'file_url' => ''],
                 'partner_logos' => [],
                 'banner_text_en' => '',
                 'banner_text_vi' => '',
             ];
         }
 
-        return $websiteContentSetting;
+        return $data;
     }
 }
