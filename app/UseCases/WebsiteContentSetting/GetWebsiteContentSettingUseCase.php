@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Common\App\UseCases\WebsiteContentSetting;
 
+use Common\App\Helpers\FileManager;
 use Illuminate\Support\Facades\Storage;
 
 /**
@@ -17,13 +18,13 @@ class GetWebsiteContentSettingUseCase
 
         if (Storage::exists($dataFilePath)) {
             $data = json_decode(Storage::get($dataFilePath), true);
-            $data['avatar']['file_url'] = Storage::disk('public')->url($data['avatar']['file_path']);
+            $data['avatar']['file_url'] = FileManager::getPublicStorageUrl($data['avatar']['file_path']);
 
             if (!isset($data['partner_logos'])) {
                 $data['partner_logos'] = [];
             } else {
                 foreach ($data['partner_logos'] as &$partnerLogo) {
-                    $partnerLogo['file_url'] = Storage::disk('public')->url($partnerLogo['file_path']);
+                    $partnerLogo['file_url'] = FileManager::getPublicStorageUrl($partnerLogo['file_path']);
                 }
             }
         } else {
