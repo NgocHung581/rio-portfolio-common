@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Common\App\Models;
 
 use Common\App\Enums\MediaFrame;
+use Common\App\Helpers\FileManager;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -30,6 +31,6 @@ class MediaItem extends Model
      */
     public function getFileUrlAttribute(): string
     {
-        return config('app.storage_host') . "/storage/{$this->file_path}";
+        return FileManager::getPublicStorageUrl($this->file_path);
     }
 }

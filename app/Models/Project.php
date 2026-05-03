@@ -6,6 +6,7 @@ namespace Common\App\Models;
 
 use Common\App\Enums\MediaFrame;
 use Common\App\Enums\WebVisibility;
+use Common\App\Helpers\FileManager;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -36,7 +37,7 @@ class Project extends Model
      */
     public function getThumbnailFileUrlAttribute(): string
     {
-        return config('app.storage_host') . "/storage/{$this->thumbnail_file_path}";
+        return FileManager::getPublicStorageUrl($this->thumbnail_file_path);
     }
 
     /**
