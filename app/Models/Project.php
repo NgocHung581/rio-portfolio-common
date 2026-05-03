@@ -9,7 +9,6 @@ use Common\App\Enums\WebVisibility;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Support\Facades\Storage;
 
 /**
  * The common model class for project.
@@ -37,7 +36,7 @@ class Project extends Model
      */
     public function getThumbnailFileUrlAttribute(): string
     {
-        return Storage::disk('public')->url($this->thumbnail_file_path);
+        return config('app.storage_host') . "/storage/{$this->thumbnail_file_path}";
     }
 
     /**
