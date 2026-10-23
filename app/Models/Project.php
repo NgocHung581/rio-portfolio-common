@@ -53,6 +53,6 @@ class Project extends Model
      */
     public function galleries(): HasMany
     {
-        return $this->hasMany(Gallery::class);
+        return $this->hasMany(Gallery::class)->orderBy('display_order')->orderBy('id');
     }
 }

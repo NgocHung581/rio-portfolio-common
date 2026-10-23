@@ -23,6 +23,6 @@ class Gallery extends Model
      */
     public function mediaItems(): HasMany
     {
-        return $this->hasMany(MediaItem::class);
+        return $this->hasMany(MediaItem::class)->orderBy('display_order')->orderBy('id');
     }
 }
