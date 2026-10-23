@@ -18,8 +18,8 @@ enum Locale: string
     public function label(): string
     {
         return match ($this) {
-            self::English => __('english'),
-            self::Vietnamese => __('vietnamese'),
+            self::English => __('english', locale: $this::English->value),
+            self::Vietnamese => __('vietnamese', locale: $this::Vietnamese->value),
         };
     }
 
